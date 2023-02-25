@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,10 +22,13 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String title;
+    @EqualsAndHashCode.Exclude
     private String isbn;
 
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "bookd_id"),
     inverseJoinColumns = @JoinColumn(name = "author_id"))
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Author> authors;
 }
