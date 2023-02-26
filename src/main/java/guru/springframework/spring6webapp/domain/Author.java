@@ -10,13 +10,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,5 +29,20 @@ public class Author {
     @ManyToMany(mappedBy = "authors") // many authors to many books. Mapped by authors
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Book> books;
+    private Set<Book> books = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Author author = (Author) o;
+
+        return id.equals(author.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }
