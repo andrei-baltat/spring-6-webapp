@@ -2,22 +2,21 @@ package guru.springframework.spring6webapp.services;
 
 import guru.springframework.spring6webapp.domain.Book;
 import guru.springframework.spring6webapp.repositories.BookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by jt, Spring Framework Guru.
- */
 @Service
-public class BookServiceImpl implements BookService {
+public class BookServiceImpl implements BookService{
 
-    private final BookRepository bookRepository;
+    private final BookRepository repository;
 
-    public BookServiceImpl(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
+    @Autowired
+    public BookServiceImpl(BookRepository repository) {
+        this.repository = repository;
     }
 
     @Override
     public Iterable<Book> findAll() {
-        return bookRepository.findAll();
+        return repository.findAll();
     }
 }
